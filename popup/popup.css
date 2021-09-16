@@ -7,7 +7,7 @@ th, td {
     border: 1px solid black;
     margin: 10px 10px 10px 10px;
     padding: 10px 10px 10px 10px;
-    overflow:hidden;
+    overflow: hidden;
 }
 
 td.button-container {
