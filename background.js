@@ -10,20 +10,6 @@ function updatePopupTableOfScrollingTabs() {
   })
 }
 
-function updateIcon(tab, isScrolling) {
-  if (isScrolling) {
-    var settingIcon = browser.browserAction.setIcon({
-      tabId: tab.id,
-      path: "icons/scrollToBottomFox-ON.png"
-    });
-  } else {
-    var settingIcon = browser.browserAction.setIcon({
-      tabId: tab.id,
-      path: "icons/scrollToBottomFox-OFF.png"
-    });
-  }
-}
-
 function browserActionOnClickListener(tab) {
   browser.tabs.sendMessage(tab.id, {
     msg: "toggle-scrolling",
@@ -34,7 +20,7 @@ function browserActionOnClickListener(tab) {
 
 function browserTabsOnActivatedListener(activeInfo) {
   var gettingActiveTab = browser.tabs.get(activeInfo.tabId);
-  gettingActiveTab.then((tabInfo) => {
+  gettingActiveTab.then(tabInfo => {
     // Automatically inject script to any tab
     var injectingScript = browser.tabs.executeScript({file: "content_scripts/scrollToBottom.js"});
     injectingScript.then(() => {
@@ -43,12 +29,6 @@ function browserTabsOnActivatedListener(activeInfo) {
         tabId: tabInfo.id
       });
     });
-
-    updateIcon(tabInfo, false);
-
-    if (listScrollingTabIds.indexOf(tabInfo.id) !== -1) {
-      updateIcon(tabInfo, true);
-    }
   });
 }
 
@@ -63,13 +43,11 @@ function browserRuntimeOnMessageListener(message) {
     gettingTab.then((tab) => {
       listScrollingTabIds.push(tab.id);
       updatePopupTableOfScrollingTabs();
-      updateIcon(tab.id, true);
     });
   } else if (message.msg == "delTabFromScrollingList") {
     console.log("background.js: Message delTabFromScrollingList received");
     console.log("background.js: message.tabId = " + message.tabId);
     var delIndx = listScrollingTabIds.indexOf(message.tabId);
-    updateIcon(message.tabId, false);
     listScrollingTabIds.splice(delIndx, 1);
     updatePopupTableOfScrollingTabs();
   }
