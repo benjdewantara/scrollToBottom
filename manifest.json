@@ -2,7 +2,7 @@
   "author": "benjdewantara",
   "manifest_version": 2,
   "name": "scrollToBottom",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "The simplest one-click solution to make a page keep scrolling to the bottom",
   "applications": {
     "gecko": {
