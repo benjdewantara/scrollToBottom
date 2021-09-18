@@ -1,4 +1,5 @@
 {
+  "author": "benjdewantara",
   "manifest_version": 2,
   "name": "scrollToBottom",
   "version": "1.0.1",
@@ -22,7 +23,7 @@
     ]
   },
   "browser_action": {
-    "default_icon": "icons/scrollToBottom-OFF.png",
+    "default_icon": "icons/scrollToBottom-ON.png",
     "default_title": "scrollToBottom",
     "default_popup": "popup/popup.html"
   }
